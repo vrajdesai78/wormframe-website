@@ -228,9 +228,11 @@ export default function BridgeKit() {
       </div>
       <Link
         id='frame'
-        href={`https://warpcast.com/~/developers/frames?url=https%3A%2F%2Fworm-frame.vercel.app%2Fframes?from=${
-          frameNetwork[selectedNetwork1 as keyof typeof CHAINS]
-        }&to=${frameNetwork[selectedNetwork2 as keyof typeof CHAINS]}`}
+        href={`https://warpcast.com/~/developers/frames?url=${encodeURIComponent(
+          `https://worm-frame.vercel.app/frames?from=${
+            frameNetwork[selectedNetwork1 as keyof typeof CHAINS]
+          }&to=${frameNetwork[selectedNetwork2 as keyof typeof CHAINS]}`
+        )}`}
         target='_blank'
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
