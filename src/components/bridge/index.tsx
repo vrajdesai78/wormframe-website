@@ -19,10 +19,9 @@ import {
   USDC,
   frameNetwork,
   viemChains,
-} from "../../constants";
-import { USDCABI, bridgeABI } from "../../abi";
+} from "../../../constants";
+import { USDCABI, bridgeABI } from "../../../abi";
 import { createPublicClient, getContract, http, parseUnits } from "viem";
-import { ConnectKitButton } from "connectkit";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 
