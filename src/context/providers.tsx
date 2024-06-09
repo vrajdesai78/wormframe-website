@@ -3,25 +3,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import {
-  arbitrum,
-  avalanche,
-  avalancheFuji,
-  base,
-  baseSepolia,
-  moonbeam,
-  optimism,
-  polygonAmoy,
-  polygonZkEvmCardona,
-  scrollSepolia,
-  zkSyncSepoliaTestnet,
-} from "viem/chains";
+import { arbitrum, avalanche, base, optimism } from "viem/chains";
 
 const config = createConfig(
   getDefaultConfig({
     chains: [base, avalanche, optimism, arbitrum],
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
-    appName: "WiseBets",
+    appName: "CCTP Frame",
     ssr: true,
   })
 );

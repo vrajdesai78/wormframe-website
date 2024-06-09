@@ -1,13 +1,18 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
+import { createPreset } from "fumadocs-ui/tailwind-plugin";
 
 const config = {
   darkMode: ["class"],
+  presets: [createPreset()],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "./src/content/**/*.mdx",
+    "./src/mdx-components.tsx",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -24,6 +29,20 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        brand: {
+          100: "#E6E6E6",
+          200: "#CCCCCC",
+          300: "#B3B3B3",
+          400: "#999999",
+          500: "#808080",
+          600: "#666666",
+          700: "#4D4D4D",
+          800: "#333333",
+          900: "#191919",
+        },
+        plum: {
+          100: "#C1BBF6",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -53,6 +72,9 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        "space-grotesk": ["var(--font-space-grotesk)", ...fontFamily.sans],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -75,6 +97,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
