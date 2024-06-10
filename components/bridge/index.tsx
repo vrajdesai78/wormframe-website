@@ -22,8 +22,18 @@ import {
 } from "../../constants";
 import { USDCABI, bridgeABI } from "../../abi";
 import { createPublicClient, getContract, http, parseUnits } from "viem";
-import { toast } from "react-hot-toast";
 import Image from "next/image";
+import { toast } from "react-toastify";
+
+const CustomToastWithLink = (tx: string) => {
+  return (
+    <div>
+      <Link href={`https://wormholescan.io/#/tx/${tx}`} target='_blank'>
+        USDC bridged successfully! Click here to view the transaction.
+      </Link>
+    </div>
+  );
+};
 
 export default function BridgeKit() {
   const [selectedNetwork1, setSelectedNetwork1] = useState<string | null>(null);
@@ -62,17 +72,16 @@ export default function BridgeKit() {
   const { writeContractAsync: usdcContractWrite, data: usdcHash } =
     useWriteContract();
 
-  const { isSuccess, isLoading: usdcLoading } = useWaitForTransactionReceipt({
+  const { isSuccess } = useWaitForTransactionReceipt({
     hash: usdcHash,
   });
 
   const { writeContractAsync: bridgeContractWrite, data: bridgeHash } =
     useWriteContract();
 
-  const { isSuccess: isBridgeSuccess, isLoading: bridgeLoading } =
-    useWaitForTransactionReceipt({
-      hash: bridgeHash,
-    });
+  const { isSuccess: isBridgeSuccess } = useWaitForTransactionReceipt({
+    hash: bridgeHash,
+  });
 
   const approveUSDC = async () => {
     if (selectedNetwork1 && selectedNetwork2 && amount) {
@@ -94,7 +103,9 @@ export default function BridgeKit() {
       } catch (e) {
         console.error(e);
         setLoading("none");
-        toast.error("Something went wrong");
+        toast.error("Something went wrong", {
+          position: "bottom-center",
+        });
       }
     }
   };
@@ -108,7 +119,9 @@ export default function BridgeKit() {
   useEffect(() => {
     if (isBridgeSuccess) {
       setLoading("none");
-      toast.success("USDC bridged successfully");
+      toast.success(CustomToastWithLink(bridgeHash as string), {
+        position: "bottom-center",
+      });
     }
   }, [isBridgeSuccess]);
 
@@ -152,7 +165,9 @@ export default function BridgeKit() {
       } catch (e) {
         console.error(e);
         setLoading("none");
-        toast.error("Something went wrong");
+        toast.error("Something went wrong", {
+          position: "bottom-center",
+        });
       }
     }
   };
@@ -224,20 +239,34 @@ export default function BridgeKit() {
       <div className='inline-flex items-center justify-center w-full sm:w-3/4 md:w-2/3 lg:h-2/3 xl:w-1/2'>
         <hr className='w-full h-px my-8 bg-gradient-to-r from-transparent to-transparent via-neutral-400 border-0' />
       </div>
-      <Link
-        id='frame'
-        href={`https://warpcast.com/~/developers/frames?url=${encodeURIComponent(
-          `https://worm-frame.vercel.app/frames?from=${
-            frameNetwork[selectedNetwork1 as keyof typeof CHAINS]
-          }&to=${frameNetwork[selectedNetwork2 as keyof typeof CHAINS]}`
-        )}`}
-        target='_blank'
-        className='flex flex-row items-center justify-center gap-4 border border-violet-500 hover:bg-violet-500 text-lg text-violet-100 hover:text-white font-medium hover:shadow-lg py-3 px-10 rounded-xl w-full sm:w-3/4 md:w-2/3 lg:h-2/3 xl:w-[46%]'
-      >
-        <FarcasterIcon color='white' /> Bridge it from Frame
-      </Link>
+      <div className='flex gap-4 items-center justify-center w-1/2'>
+        <Link
+          id='frame'
+          href={`https://warpcast.com/~/compose?embeds[]=${encodeURIComponent(
+            `https://worm-frame.vercel.app/frames?source=${
+              frameNetwork[selectedNetwork1 as keyof typeof CHAINS]
+            }&target=${frameNetwork[selectedNetwork2 as keyof typeof CHAINS]}`
+          )}`}
+          target='_blank'
+          className='flex flex-row items-center justify-center gap-4 border border-violet-500 hover:bg-violet-500 text-lg text-violet-100 hover:text-white font-medium hover:shadow-lg py-3 px-10 rounded-xl w-full sm:w-3/4 md:w-2/3 lg:h-2/3 xl:w-[46%]'
+        >
+          <FarcasterIcon color='white' /> Share as Frame
+        </Link>
+        <Link
+          id='frame'
+          href={`https://warpcast.com/~/developers/frames?url=${encodeURIComponent(
+            `https://worm-frame.vercel.app/frames?source=${
+              frameNetwork[selectedNetwork1 as keyof typeof CHAINS]
+            }&target=${frameNetwork[selectedNetwork2 as keyof typeof CHAINS]}`
+          )}`}
+          target='_blank'
+          className='flex flex-row items-center justify-center gap-4 border border-violet-500 hover:bg-violet-500 text-lg text-violet-100 hover:text-white font-medium hover:shadow-lg py-3 px-10 rounded-xl w-full sm:w-3/4 md:w-2/3 lg:h-2/3 xl:w-[46%]'
+        >
+          <FarcasterIcon color='white' /> Test as Frame
+        </Link>
+      </div>
       <div className='flex flex-row justify-center items-center text-violet-100 mt-2 gap-0.5'>
-        <span className='mb-1'>Powered by</span>
+        <span className='mb-1 mr-1'>Powered by</span>
         <Image
           src='/wormhole.png'
           width='100'

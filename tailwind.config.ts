@@ -1,18 +1,16 @@
-import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 import { createPreset } from "fumadocs-ui/tailwind-plugin";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
-  presets: [createPreset()],
   content: [
-    "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-    "./src/content/**/*.mdx",
-    "./src/mdx-components.tsx",
+    "./content/**/*.{md,mdx}",
+    "./mdx-components.{ts,tsx}",
+    "./node_modules/fumadocs-ui/dist/**/*.js",
   ],
+  presets: [createPreset()],
   prefix: "",
   theme: {
     container: {
@@ -97,6 +95,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
 
 export default config;

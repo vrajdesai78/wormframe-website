@@ -5,7 +5,8 @@ import { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
-import { Toaster } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Wormframe",
@@ -34,8 +35,8 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Providers>
             <Navbar />
             {children}
+            <ToastContainer />
           </Providers>
-          <Toaster position='bottom-center' />
         </RootProvider>
       </body>
     </html>

@@ -34,7 +34,7 @@ const Navbar = () => {
                   alt='logo'
                   width={40}
                   height={40}
-                  className='w-12 h-10'
+                  className='w-8 h-8'
                 />
               </Link>
             </div>
@@ -67,7 +67,7 @@ const Navbar = () => {
               }`}
               id='navbar-default'
             >
-              <ul className='font-medium font-primary flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-10 rtl:space-x-reverse md:mt-0'>
+              <ul className='font-medium font-primary flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-10 rtl:space-x-reverse md:mt-0 ml-32'>
                 <li>
                   <Link
                     href='/'
