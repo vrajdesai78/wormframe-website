@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import "fumadocs-ui/style.css";
-import "./globals.css";
-import { RootProvider } from "fumadocs-ui/provider";
 import Providers from "@/context/providers";
-import { Toaster } from "react-hot-toast";
+import "./global.css";
+import { RootProvider } from "fumadocs-ui/provider";
+import { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import type { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Wormframe",
@@ -20,13 +20,9 @@ const grotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={grotesk.variable}
         style={{
