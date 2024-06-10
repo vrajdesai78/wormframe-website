@@ -83,7 +83,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    href={`/#`}
+                    href={`/docs`}
                     className={`block py-2 px-3 ${
                       pathname === "/create"
                         ? "text-brand-200 hover:text-black"
