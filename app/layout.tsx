@@ -4,6 +4,7 @@ import { RootProvider } from "fumadocs-ui/provider";
 import { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,6 +37,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <Navbar />
             {children}
             <ToastContainer />
+            <Analytics />
           </Providers>
         </RootProvider>
       </body>
